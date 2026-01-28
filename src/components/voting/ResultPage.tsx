@@ -3,12 +3,12 @@ import AvatarPlayerCard from "../shared/AvatarPlayerCard.tsx";
 import Button from "../shared/Button.tsx";
 
 interface ResultProps {
-    deletedPlayer: Player
+    deletedPlayer: Player | null
     winner: 'impostors' | 'innocents' | null
     onContinue: () => void
 }
 
-export default function Result({deletedPlayer, winner, onContinue}: ResultProps) {
+export default function ResultPage({deletedPlayer, winner, onContinue}: ResultProps) {
     if (winner) {
         return (
             <div className={`min-h-screen flex items-center justify-center p-4 ${
@@ -41,21 +41,21 @@ export default function Result({deletedPlayer, winner, onContinue}: ResultProps)
         <div
             className="min-h-screen bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-                <AvatarPlayerCard name={deletedPlayer.name} sizeImg={120}/>
-                <h2 className="text-3xl font-bold mt-6 mb-4 text-gray-800">{deletedPlayer.name}</h2>
+                <AvatarPlayerCard name={deletedPlayer!.name} sizeImg={120}/>
+                <h2 className="text-3xl font-bold mt-6 mb-4 text-gray-800">{deletedPlayer!.name}</h2>
                 <div className={`rounded-xl p-6 mb-6 ${
-                    deletedPlayer.isImpostor ? 'bg-red-50 border-4 border-red-500'
+                    deletedPlayer!.isImpostor ? 'bg-red-50 border-4 border-red-500'
                         : 'bg-blue-50 border-4 border-blue-500'
                 }`}>
                     <h3 className={`text-3xl font-bold ${
-                        deletedPlayer.isImpostor ? 'text-red-600' : 'text-blue-600'
+                        deletedPlayer!.isImpostor ? 'text-red-600' : 'text-blue-600'
                     }`}>
-                        {deletedPlayer.isImpostor ? 'Impostor eliminated.' : 'Innocent eliminated.'}
+                        {deletedPlayer!.isImpostor ? 'Impostor eliminated.' : 'Innocent eliminated.'}
                     </h3>
                 </div>
                 <p className="text-gray-600 mb-6">
                     {
-                        deletedPlayer.isImpostor ? 'Well done. Catch the other impostors!'
+                        deletedPlayer!.isImpostor ? 'Well done. Catch the other impostors!'
                             : 'Hey, be careful. The impostors still are out there...'
                     }
                 </p>

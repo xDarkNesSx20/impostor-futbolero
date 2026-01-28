@@ -1,5 +1,5 @@
 import type {Category, Configuration} from "../../utils/gameTypes.ts";
-import Button from "../shared/Button.ts";
+import Button from "../shared/Button.tsx";
 
 //Partial is like Optional in Java
 interface MatchConfigProps {
