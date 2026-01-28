@@ -1,5 +1,4 @@
-// src/types/game.ts
-export type Stage = 'setup' | 'reveal' | 'playing' | 'voting' | 'result' | 'victory';
+export type Stage = 'setup' | 'reveal' | 'playing' | 'voting' | 'result'
 
 export type Category = 'players' | 'teams' | 'coaches' | 'nations' | 'stadiums';
 
@@ -20,7 +19,7 @@ export interface GameState {
     stage: Stage;
     players: Player[];
     configuration: Configuration;
-    secretWord: string | null;
+    secretWord: string | '';
     eliminatedPlayer: Player | null;
     winner: 'impostors' | 'innocents' | null;
     currentPlayerReveal: number;
