@@ -34,7 +34,7 @@ function App() {
     const deletePlayer = (id: number) => {
         setGameState(prevState => ({
             ...prevState,
-            players: prevState.players.filter(p => p.id === id)
+            players: prevState.players.filter(p => p.id !== id)
         }))
     }
 
@@ -124,7 +124,7 @@ function App() {
                 <div className="min-h-screen bg-gradient-to-br from-green-400 to-blue-500 p-8">
                     <div className="max-w-6xl mx-auto">
                         <h1 className="text-5xl font-bold text-white text-center mb-8 drop-shadow-lg">
-                            Impostor Futbolero
+                            ⚽ Impostor Futbolero ⚽
                         </h1>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <PlayerRegister players={gameState.players} onAddPlayer={addPlayer}

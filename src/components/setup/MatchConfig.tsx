@@ -64,7 +64,7 @@ export default function MatchConfig({configuration, onChangeConfig, onStartGame,
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Round duration (Seconds)</label>
                 <div className="flex gap-2">
                     {
-                        [120, 180, 240, 300].map(duration => (
+                        [60, 90, 120, 150, 180].map(duration => (
                             <button key={duration} onClick={() => onChangeConfig({durationTimer: duration})}
                             className={`flex-1 py-2 rounded-lg border-2 transition-all ${
                                 configuration.durationTimer === duration ?
