@@ -11,10 +11,24 @@ interface RevealRoleCardProps {
 }
 
 export default function RevealRoleCard({player, secretWord, onNext, isLastOne}: RevealRoleCardProps) {
-    const [isRevealed, setIsRevealed] = useState(false);
+    const [isRevealed, setIsRevealed] = useState(false)
+    const [hasBeenRevealed, setHasBeenRevealed] = useState(false)
+
+    const handleClick = () => {
+        setIsRevealed(true)
+        setHasBeenRevealed(true)
+    }
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+        <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 flex flex-col gap-10 items-center justify-center p-4">
+            <div className={`bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center transition-transform duration-700 transform-gpu ${
+                isRevealed ? 'rotate-y-180' : 'rotate-y-0'
+            }`}
+                 style={{
+                     transform: isRevealed ? 'rotateY(180deg)':'rotateY(0deg)',
+                     transition: 'transform .6s',
+                     //backfaceVisibility: 'hidden'
+                 }}>
                 <AvatarPlayerCard name={player.name} sizeImg={100}/>
                 <h2 className="text-3xl font-bold mt-4 mb-6 text-gray-800">{player.name}</h2>
 
@@ -22,7 +36,7 @@ export default function RevealRoleCard({player, secretWord, onNext, isLastOne}: 
                     !isRevealed ? (
                         <>
                             <p className="text-lg text-gray-600 mb-6">Tap the button below to reveal your role</p>
-                            <Button onClick={() => setIsRevealed(true)} fullWidth>Reveal Role</Button>
+                            <Button onClick={() => handleClick()} fullWidth>Reveal Role</Button>
                         </>
                     ) : (
                         <div className="space-y-6">
@@ -43,13 +57,21 @@ export default function RevealRoleCard({player, secretWord, onNext, isLastOne}: 
                                 )
                             }
 
-                            <Button onClick={onNext} fullWidth variant={isLastOne? 'success' : 'primary'}>
-                                {isLastOne ? 'Start Game' : 'Next Player'}
-                            </Button>
+                            <Button onClick={() => setIsRevealed(false)} fullWidth variant={'secondary'}>Flip
+                                again</Button>
                         </div>
                     )
                 }
             </div>
+            {
+                hasBeenRevealed && !isRevealed && (
+                    <>
+                        <Button onClick={onNext} variant={isLastOne ? 'success' : 'danger'}>
+                            {isLastOne ? 'Start Game' : 'Next Player'}
+                        </Button>
+                    </>
+                )
+            }
         </div>
     )
 }

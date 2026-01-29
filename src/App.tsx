@@ -62,7 +62,7 @@ function App() {
         if (gameState.currentPlayerReveal < gameState.players.length - 1) {
             setGameState(prevState => ({
                 ...prevState,
-                currentPlayerReveal: prevState.currentPlayerReveal++
+                currentPlayerReveal: prevState.currentPlayerReveal + 1
             }))
         } else {
             setGameState(prevState => ({
