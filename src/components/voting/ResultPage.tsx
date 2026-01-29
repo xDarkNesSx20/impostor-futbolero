@@ -56,7 +56,7 @@ export default function ResultPage({deletedPlayer, winner, onContinue}: ResultPr
                 <p className="text-gray-600 mb-6">
                     {
                         deletedPlayer!.isImpostor ? 'Well done. Catch the other impostors!'
-                            : 'Hey, be careful. The impostors still are out there...'
+                            : 'Hey, be careful. The impostors are still out there...'
                     }
                 </p>
                 <Button onClick={onContinue} fullWidth>Continue</Button>

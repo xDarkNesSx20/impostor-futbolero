@@ -43,7 +43,7 @@ export default function VotingPage({players, onDeletePlayer}: VotingPageProps) {
                         playerToDelete && (
                             <div className="bg-red-50 border-2 border-red-300 rounded-xl p-6 mb-6">
                                 <p className="text-center text-gray-700">
-                                    <span className="font-bold text-red-600 text-xl">{playerToDelete.name}</span>
+                                    <span className="font-bold text-red-600 text-xl">{playerToDelete.name} </span>
                                     will be eliminated.
                                 </p>
                             </div>

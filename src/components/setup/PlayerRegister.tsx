@@ -3,6 +3,8 @@ import type {Player} from "../../utils/gameTypes.ts";
 import AvatarPlayerCard from "../shared/AvatarPlayerCard.tsx";
 import Button from "../shared/Button.tsx";
 
+//TODO: When one player is unregistered, there's a bug that remove all players except the one who is wanted to remove
+
 interface PlayerRegisterProps {
     players: Player[]
     onAddPlayer: (name: string) => void
@@ -53,7 +55,7 @@ export default function PlayerRegister({players, onAddPlayer, onDeletePlayer}: P
                 }
             </div>
 
-            <div className="mt-4 text-sm text-gray-600">
+            <div className="mt-4 text-sm text-gray-600 text-center">
                 Total: {players.length} player{players.length !== 1 && 's'}
                 {
                     players.length < 4 && (<span className="text-orange-600 ml-2">(At least 4 players.)</span>)

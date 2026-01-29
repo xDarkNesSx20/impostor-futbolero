@@ -11,20 +11,54 @@ interface RevealRoleCardProps {
 }
 
 export default function RevealRoleCard({player, secretWord, onNext, isLastOne}: RevealRoleCardProps) {
-    const [isRevealed, setIsRevealed] = useState(false);
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-                <AvatarPlayerCard name={player.name} sizeImg={100}/>
-                <h2 className="text-3xl font-bold mt-4 mb-6 text-gray-800">{player.name}</h2>
+    const [isRevealed, setIsRevealed] = useState(false)
+    const [hasBeenRevealed, setHasBeenRevealed] = useState(false)
 
-                {
-                    !isRevealed ? (
-                        <>
-                            <p className="text-lg text-gray-600 mb-6">Tap the button below to reveal your role</p>
-                            <Button onClick={() => setIsRevealed(true)} fullWidth>Reveal Role</Button>
-                        </>
-                    ) : (
+    const handleClick = () => {
+        setIsRevealed(true)
+        setHasBeenRevealed(true)
+    }
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 flex flex-col gap-10 items-center justify-center p-4">
+            <div className="[perspective:1000px] max-w-md w-full">
+                <div
+                    className="relative w-full min-h-[500px] transition-transform duration-700"
+                    style={{
+                        transformStyle: 'preserve-3d',
+                        transform: isRevealed ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                    }}
+                >
+                    {/* Front face */}
+                    <div
+                        className="absolute inset-0 bg-white rounded-2xl shadow-2xl p-8 w-full text-center flex flex-col justify-between"
+                        style={{ backfaceVisibility: 'hidden' }}
+                    >
+                        <div className="flex mb-4 gap-4">
+                            <AvatarPlayerCard name={player.name} sizeImg={100}/>
+                            <h2 className="text-3xl font-bold text-center text-gray-800 w-full flex items-center">
+                                {player.name}
+                            </h2>
+                        </div>
+                        <p className="text-lg text-gray-600 mb-6">Tap the button below to reveal your role</p>
+                        <Button onClick={() => handleClick()} fullWidth>Reveal Role</Button>
+                    </div>
+
+                    {/* Back face */}
+                    <div
+                        className="absolute inset-0 bg-white rounded-2xl shadow-2xl p-8 w-full text-center flex flex-col justify-between"
+                        style={{
+                            backfaceVisibility: 'hidden',
+                            transform: 'rotateY(180deg)'
+                        }}
+                    >
+                        <div className="flex mb-4 gap-4">
+                            <AvatarPlayerCard name={player.name} sizeImg={100}/>
+                            <h2 className="text-3xl font-bold text-center text-gray-800 w-full flex items-center">
+                                {player.name}
+                            </h2>
+                        </div>
+
                         <div className="space-y-6">
                             {
                                 player.isImpostor ? (
@@ -43,13 +77,21 @@ export default function RevealRoleCard({player, secretWord, onNext, isLastOne}: 
                                 )
                             }
 
-                            <Button onClick={onNext} fullWidth variant={isLastOne? 'success' : 'primary'}>
-                                {isLastOne ? 'Start Game' : 'Next Player'}
+                            <Button onClick={() => setIsRevealed(false)} fullWidth variant={'secondary'}>
+                                Flip again
                             </Button>
                         </div>
-                    )
-                }
+                    </div>
+                </div>
             </div>
+
+            {
+                hasBeenRevealed && !isRevealed && (
+                    <Button onClick={onNext} variant={isLastOne ? 'success' : 'danger'}>
+                        {isLastOne ? 'Start Game' : 'Next Player'}
+                    </Button>
+                )
+            }
         </div>
     )
 }
