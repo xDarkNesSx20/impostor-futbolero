@@ -34,3 +34,8 @@ export function checkWinner(players: Player[]): 'impostors' | 'innocents' | null
 
     return null
 }
+
+export function selectStartingPlayer(players: Player[]): Player {
+    const randomIdx = Math.floor(Math.random() * players.length)
+    return players[randomIdx]
+}

@@ -3,8 +3,6 @@ import type {Player} from "../../utils/gameTypes.ts";
 import AvatarPlayerCard from "../shared/AvatarPlayerCard.tsx";
 import Button from "../shared/Button.tsx";
 
-//TODO: When one player is unregistered, there's a bug that remove all players except the one who is wanted to remove
-
 interface PlayerRegisterProps {
     players: Player[]
     onAddPlayer: (name: string) => void
