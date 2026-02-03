@@ -27,7 +27,7 @@ export default function PlayerRegister({players, onAddPlayer, onDeletePlayer}: P
                 <div className="flex gap-2">
                     <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)}
                            placeholder="Player's Name" maxLength={20}
-                           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[70%]"
                     />
                     <Button type="submit" disabled={!playerName.trim()}>Add</Button>
                 </div>
