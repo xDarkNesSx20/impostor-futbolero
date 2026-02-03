@@ -1,4 +1,4 @@
-export type Stage = 'setup' | 'reveal' | 'playing' | 'voting' | 'result'
+export type Stage = 'setup' | 'reveal' | 'waiting' | 'playing' | 'voting' | 'result'
 
 export type Category = 'players' | 'teams' | 'coaches' | 'nations' | 'stadiums';
 
@@ -20,6 +20,7 @@ export interface GameState {
     players: Player[];
     configuration: Configuration;
     secretWord: string | '';
+    startingPlayer: Player | null;
     eliminatedPlayer: Player | null;
     winner: 'impostors' | 'innocents' | null;
     currentPlayerReveal: number;

@@ -1,21 +1,24 @@
 import {useState} from "react";
 import type {GameState, Player, Configuration} from "./utils/gameTypes.ts";
-import {assignRoleToPlayers, selectWord, checkWinner} from "./utils/gameFunctions.ts";
+import {assignRoleToPlayers, selectWord, checkWinner, selectStartingPlayer} from "./utils/gameFunctions.ts";
 import PlayerRegister from "./components/setup/PlayerRegister.tsx";
 import MatchConfig from "./components/setup/MatchConfig.tsx";
 import RoleReveal from "./components/reveal/RoleReveal.tsx";
 import GameView from "./components/game/GameView.tsx";
 import VotingPage from "./components/voting/VotingPage.tsx";
 import ResultPage from "./components/voting/ResultPage.tsx";
+import WaitingView from "./components/waiting/WaitingView.tsx";
 
 function App() {
+    const [players, setPlayers] = useState<Player[]>([])
     const [gameState, setGameState] = useState<GameState>({
         stage: 'setup', players: [],
         configuration: {
             category: 'players',
             numImpostors: 1,
             durationTimer: 120
-        }, secretWord: '', eliminatedPlayer: null,
+        }, secretWord: '', startingPlayer: null,
+        eliminatedPlayer: null,
         winner: null, currentPlayerReveal: 0
     })
 
@@ -25,6 +28,7 @@ function App() {
             name, isImpostor: false,
             isEliminated: false
         }
+        setPlayers(prevPlayers => ([...prevPlayers, newPlayer]))
         setGameState(prevState => ({
             ...prevState,
             players: [...prevState.players, newPlayer]
@@ -32,6 +36,7 @@ function App() {
     }
 
     const deletePlayer = (id: number) => {
+        setPlayers(prevPlayers => prevPlayers.filter(p => p.id !== id))
         setGameState(prevState => ({
             ...prevState,
             players: prevState.players.filter(p => p.id !== id)
@@ -48,12 +53,14 @@ function App() {
     const startGame = () => {
         const playersWithRole = assignRoleToPlayers(gameState.players, gameState.configuration.numImpostors)
         const chosenWord = selectWord(gameState.configuration.category)
+        const startingPlayer = selectStartingPlayer(gameState.players)
 
         setGameState(prevState => ({
             ...prevState,
             stage: 'reveal',
             players: playersWithRole,
             secretWord: chosenWord,
+            startingPlayer: startingPlayer,
             currentPlayerReveal: 0
         }))
     }
@@ -67,9 +74,16 @@ function App() {
         } else {
             setGameState(prevState => ({
                 ...prevState,
-                stage: 'playing'
+                stage: 'waiting'
             }))
         }
+    }
+
+    const callDebate = () => {
+        setGameState(prevState => ({
+            ...prevState,
+            stage: 'playing'
+        }))
     }
 
     const callVoting = () => {
@@ -101,12 +115,13 @@ function App() {
     const continueGame = () => {
         if (gameState.winner) {
             setGameState({
-                stage: 'setup', players: [],
+                stage: 'setup', players: [...players],
                 configuration: {
                     category: 'players',
                     numImpostors: 1,
                     durationTimer: 120
-                }, secretWord: '', eliminatedPlayer: null,
+                }, secretWord: '', startingPlayer: null,
+                eliminatedPlayer: null,
                 winner: null, currentPlayerReveal: 0
             })
         } else {
@@ -139,6 +154,10 @@ function App() {
             return (
                 <RoleReveal players={gameState.players} secretWord={gameState.secretWord}
                             currentPlayer={gameState.currentPlayerReveal} onNext={nextReveal}/>
+            );
+        case "waiting":
+            return (
+                <WaitingView duration={5} onTimeUp={callDebate} startingPlayerName={gameState.startingPlayer?.name} />
             );
         case "playing":
             return (
