@@ -1,7 +1,8 @@
 import type {Player} from "../../utils/gameTypes.ts";
 import AvatarPlayerCard from "../shared/AvatarPlayerCard.tsx";
 import Button from "../shared/Button.tsx";
-import {bgsRoute} from "../../utils/constants.ts";
+import innocentBg from "../../assets/backgrounds/bg-innocent-victory.webp"
+import impostorBg from "../../assets/backgrounds/bg-impostor-victory.webp"
 
 interface ResultProps {
     deletedPlayer: Player | null
@@ -10,21 +11,20 @@ interface ResultProps {
 }
 
 export default function ResultPage({deletedPlayer, winner, onContinue}: ResultProps) {
-    const bg = winner === 'innocents' ? 'bg-innocent-victory.webp'
-        : 'bg-impostor-victory.webp'
+    const bg = winner === 'innocents' ? innocentBg : impostorBg
     if (winner) {
         return (
             <div
                 className={`relative min-h-screen bg-center bg-cover bg-no-repeat p-4 sm:p-6 md:p-8 flex items-center justify-center`}
-                style={{backgroundImage: `url('${bgsRoute}/${bg}')`}}>
+                style={{backgroundImage: `url(${bg})`}}>
                 <div className="absolute inset-0 bg-black/80"/>
                 <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center relative z-10">
                     <h2 className="text-4xl font-bold mb-4">
                         {
                             winner === 'impostors' ? (
-                                <span className="text-green-600">Impostors Wins</span>
+                                <span className="text-red-600">Impostors Wins</span>
                             ) : (
-                                <span className="text-red-600">Innocent Wins</span>
+                                <span className="text-green-600">Innocent Wins</span>
                             )
                         }
                     </h2>

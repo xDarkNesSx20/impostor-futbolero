@@ -1,6 +1,6 @@
 import Timer from "./Timer.tsx";
 import Button from "../shared/Button.tsx";
-import {bgsRoute} from "../../utils/constants.ts";
+import debateBg from "../../assets/backgrounds/bg-debate.webp"
 
 interface GameViewProps {
     durationTimer: number
@@ -10,7 +10,7 @@ interface GameViewProps {
 export default function GameView({durationTimer, onCallVoting}: GameViewProps) {
     return(
         <div className="relative min-h-screen bg-center bg-cover bg-no-repeat p-4 sm:p-6 md:p-8 flex items-center"
-             style={{backgroundImage: `url('${bgsRoute}/bg-debate.webp')`}}>
+             style={{backgroundImage: `url(${debateBg})`}}>
             <div className="absolute inset-0 bg-black/80"/>
             <div className="max-w-3xl mx-auto relative z-10 w-dvw">
                 <div className="bg-white rounded-2xl shadow-2xl p-8 mb-6">

@@ -8,7 +8,7 @@ import GameView from "./components/game/GameView.tsx";
 import VotingPage from "./components/voting/VotingPage.tsx";
 import ResultPage from "./components/voting/ResultPage.tsx";
 import WaitingView from "./components/waiting/WaitingView.tsx";
-import {bgsRoute} from "./utils/constants.ts";
+import setupBg from "../src/assets/backgrounds/bg-setup.webp"
 
 function App() {
     const [players, setPlayers] = useState<Player[]>([])
@@ -135,7 +135,7 @@ function App() {
         case "setup":
             return (
                 <div className="min-h-screen p-4 sm:p-6 md:p-8 bg-cover bg-no-repeat bg-center relative"
-                    style={{backgroundImage: `url('${bgsRoute}/bg-setup.webp')`}}>
+                    style={{backgroundImage: `url(${setupBg})`}}>
                     <div className="absolute inset-0 bg-black/80"/>
                     <div className="relative z-10 max-w-6xl mx-auto">
                         <h1 className="text-5xl font-bold text-white text-center mb-8 drop-shadow-lg">
