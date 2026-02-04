@@ -2,7 +2,7 @@ import {useState} from "react";
 import type {Player} from "../../utils/gameTypes.ts";
 import AvatarPlayerCard from "../shared/AvatarPlayerCard.tsx";
 import Button from "../shared/Button.tsx";
-import {bgsRoute} from "../../utils/constants.ts";
+import votingBg from "../../assets/backgrounds/bg-voting.webp"
 
 interface VotingPageProps {
     players: Player[]
@@ -16,7 +16,7 @@ export default function VotingPage({players, onDeletePlayer}: VotingPageProps) {
 
     return (
         <div className="relative min-h-screen bg-center bg-cover bg-no-repeat p-4 sm:p-6 md:p-8 flex items-center"
-             style={{backgroundImage: `url('${bgsRoute}/bg-voting.webp')`}}>
+             style={{backgroundImage: `url(${votingBg})`}}>
             <div className="absolute inset-0 bg-black/80"/>
             <div className="relative z-10 max-w-3xl mx-auto w-dvw">
                 <div className="bg-white rounded-2xl shadow-2xl p-8">
