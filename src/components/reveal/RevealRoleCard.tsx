@@ -20,7 +20,7 @@ export default function RevealRoleCard({player, secretWord, onNext, isLastOne}: 
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-600 to-blue-500 flex flex-col gap-10 items-center justify-center p-4">
+        <div className="flex flex-col gap-10 items-center justify-center p-4 min-h-screen">
             <div className="[perspective:1000px] max-w-md w-full">
                 <div
                     className="relative w-full min-h-[500px] transition-transform duration-700"

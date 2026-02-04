@@ -2,6 +2,7 @@ import {useState} from "react";
 import type {Player} from "../../utils/gameTypes.ts";
 import AvatarPlayerCard from "../shared/AvatarPlayerCard.tsx";
 import Button from "../shared/Button.tsx";
+import {bgsRoute} from "../../utils/constants.ts";
 
 interface VotingPageProps {
     players: Player[]
@@ -14,8 +15,10 @@ export default function VotingPage({players, onDeletePlayer}: VotingPageProps) {
     const playerToDelete = players.find(p => p.id === selectedPlayerId)
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-500 to-red-500 p-8">
-            <div className="max-w-4xl mx-auto">
+        <div className="relative min-h-screen bg-center bg-cover bg-no-repeat p-4 sm:p-6 md:p-8 flex items-center"
+             style={{backgroundImage: `url('${bgsRoute}/bg-voting.webp')`}}>
+            <div className="absolute inset-0 bg-black/80"/>
+            <div className="relative z-10 max-w-3xl mx-auto w-dvw">
                 <div className="bg-white rounded-2xl shadow-2xl p-8">
                     <h1 className="text-4xl font-bold text-center mb-2 text-gray-800">
                         Choose who will be eliminated

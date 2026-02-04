@@ -1,6 +1,7 @@
 import type {Player} from "../../utils/gameTypes.ts";
 import AvatarPlayerCard from "../shared/AvatarPlayerCard.tsx";
 import Button from "../shared/Button.tsx";
+import {bgsRoute} from "../../utils/constants.ts";
 
 interface ResultProps {
     deletedPlayer: Player | null
@@ -9,13 +10,15 @@ interface ResultProps {
 }
 
 export default function ResultPage({deletedPlayer, winner, onContinue}: ResultProps) {
+    const bg = winner === 'innocents' ? 'bg-innocent-victory.webp'
+        : 'bg-impostor-victory.webp'
     if (winner) {
         return (
-            <div className={`min-h-screen flex items-center justify-center p-4 ${
-                winner === 'innocents' ? 'bg-gradient-to-br from-green-500 to-emerald-600'
-                    : 'bg-gradient-to-br from-red-500 to-rose-600'
-            }`}>
-                <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+            <div
+                className={`relative min-h-screen bg-center bg-cover bg-no-repeat p-4 sm:p-6 md:p-8 flex items-center justify-center`}
+                style={{backgroundImage: `url('${bgsRoute}/${bg}')`}}>
+                <div className="absolute inset-0 bg-black/80"/>
+                <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center relative z-10">
                     <h2 className="text-4xl font-bold mb-4">
                         {
                             winner === 'impostors' ? (
@@ -41,8 +44,10 @@ export default function ResultPage({deletedPlayer, winner, onContinue}: ResultPr
         <div
             className="min-h-screen bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-                <AvatarPlayerCard name={deletedPlayer!.name} sizeImg={120}/>
-                <h2 className="text-3xl font-bold mt-6 mb-4 text-gray-800">{deletedPlayer!.name}</h2>
+                <div className="flex mb-10 gap-4">
+                    <AvatarPlayerCard name={deletedPlayer!.name} sizeImg={120}/>
+                    <h2 className="text-3xl font-bold text-center text-gray-800 w-full flex items-center">{deletedPlayer!.name}</h2>
+                </div>
                 <div className={`rounded-xl p-6 mb-6 ${
                     deletedPlayer!.isImpostor ? 'bg-red-50 border-4 border-red-500'
                         : 'bg-blue-50 border-4 border-blue-500'

@@ -8,3 +8,5 @@ export const variantStyles: Record<string, string> = {
 }
 
 export const avatarAPIUrl = "https://api.dicebear.com/7.x/avataaars/svg?seed="
+
+export const bgsRoute = './src/assets/backgrounds'
